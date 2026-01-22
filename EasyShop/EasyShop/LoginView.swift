@@ -64,6 +64,7 @@ struct LoginView: View {
         }
         .frame(maxHeight: .infinity)
         .background(Color(red: 225/255, green: 222/255, blue: 243/255))
+        .navigationBarBackButtonHidden()
     }
 }
 
