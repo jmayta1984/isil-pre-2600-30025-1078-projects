@@ -19,7 +19,7 @@ struct ProductImageView: View {
                     EmptyView()
                 case .success(let image):
                     image.resizable().scaledToFill()
-                case .failure(let error):
+                case .failure( _):
                     EmptyView()
                 @unknown default:
                     ProgressView()
