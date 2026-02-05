@@ -10,15 +10,18 @@ import Foundation
 
 class HomeViewModel: ObservableObject {
     
-    @Published private(set) var brands: [String] = []
+    @Published private(set) var products: [Product] = []
     
-    func getAllBrands() {
-        brands = ["Nike", "Puma", "Adidas", "New Balance", "Converse", "ASICS", "Reebok"]
-    }
+    private let productService = ProductService.shared
     
-    func removeBrand(at indexSet: IndexSet) {
-        if let index = indexSet.first {
-            brands.remove(at: index)
+    func getAllProducts() {
+        productService.getProducts { products, error in
+            
+            if let products = products {
+                DispatchQueue.main.async {
+                    self.products = products
+                }
+            }
         }
     }
     

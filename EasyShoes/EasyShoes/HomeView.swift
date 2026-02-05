@@ -14,15 +14,14 @@ struct HomeView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(viewModel.brands, id: \.self) {
-                    Text($0)
+                ForEach(viewModel.products) { product in
+                    ProductItemView(product: product)
                 }
-                .onDelete { indexSet in
-                    viewModel.removeBrand(at: indexSet)
-                }
+              
             }
+            .listStyle(.plain)
         }.onAppear {
-            viewModel.getAllBrands()
+            viewModel.getAllProducts()
         }
     }
 }

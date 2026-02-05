@@ -11,6 +11,8 @@ class ProductService {
     
     static let shared = ProductService()
     
+    private init() {}
+    
     func getProducts(completion: @escaping([Product]?, String? ) -> Void ) {
         
         let endpoint = "https://api.escuelajs.co/api/v1/products"
