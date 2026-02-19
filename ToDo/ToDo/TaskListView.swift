@@ -12,15 +12,20 @@ struct TaskListView: View {
     @StateObject private var viewModel = TaskListViewModel()
     @State private var newTask = false
     
+    
     var body: some View {
         NavigationStack {
             List {
                 ForEach(viewModel.tasks) { task in
                     Text(task.name)
                         .swipeActions(edge:.trailing) {
-                            Button(role: .destructive) {
+                            Button {
                                 viewModel.removeTask(task: task)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
                             }
+                            .tint(.red)
+
                         }
                 }
             }

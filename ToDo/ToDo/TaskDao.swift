@@ -37,6 +37,19 @@ class TaskDao {
         
     }
     
+    func remove(task: Task) {
+        let fetchRequest: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
+        
+        guard let entity = try? context.fetch(fetchRequest).first else { fatalError() }
+        
+        context.delete(entity)
+        
+        saveContext()
+        
+    }
+    
     
     private func saveContext () {
         if context.hasChanges {

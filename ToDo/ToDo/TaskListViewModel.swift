@@ -23,6 +23,7 @@ class TaskListViewModel: ObservableObject {
     }
     
     func removeTask(task: Task){
-        
+        taskDao.remove(task: task)
+        getAllTasks()
     }
 }
