@@ -9,10 +9,11 @@ import SwiftUI
 
 struct TaskView: View {
     @Environment(\.dismiss) var dismiss
+    var task: Task?
 
     
     @State var name = ""
-    let onAdd: (Task) -> Void
+    let onSave: (Task) -> Void
     
     var body: some View {
         
@@ -24,11 +25,12 @@ struct TaskView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .padding()
             }
+            .navigationBarTitle(task != nil ? "Edit task" : "New task")
             .toolbar {
                 ToolbarItem {
                     Button {
-                        let task = Task(id: UUID(), name: name)
-                        onAdd(task)
+                        let task = Task(id: self.task?.id ?? UUID(), name: name)
+                        onSave(task)
                         dismiss()
 
                         
@@ -36,6 +38,11 @@ struct TaskView: View {
                         Image(systemName: "checkmark")
                     }
 
+                }
+            }
+            .onAppear {
+                if let task = task {
+                    self.name = task.name
                 }
             }
         }

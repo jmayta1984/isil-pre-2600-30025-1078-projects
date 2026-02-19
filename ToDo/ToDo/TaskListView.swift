@@ -12,6 +12,8 @@ struct TaskListView: View {
     @StateObject private var viewModel = TaskListViewModel()
     @State private var newTask = false
     
+    @State private var selectedTask: Task?
+    
     
     var body: some View {
         NavigationStack {
@@ -27,8 +29,13 @@ struct TaskListView: View {
                             .tint(.red)
 
                         }
+                        .onTapGesture {
+                            selectedTask = task
+                        }
                 }
+               
             }
+            .navigationTitle("To Do")
             .toolbar {
                 
                 ToolbarItem {
@@ -43,6 +50,11 @@ struct TaskListView: View {
             .navigationDestination(isPresented: $newTask) {
                 TaskView { task in
                     viewModel.addTask(task: task)
+                }
+            }
+            .navigationDestination(item: $selectedTask) { task in
+                TaskView (task: task) { task in
+                    viewModel.updateTask(task: task)
                 }
             }
         }

@@ -26,4 +26,9 @@ class TaskListViewModel: ObservableObject {
         taskDao.remove(task: task)
         getAllTasks()
     }
+    
+    func updateTask(task: Task){
+        taskDao.udpate(task: task)
+        getAllTasks()
+    }
 }
